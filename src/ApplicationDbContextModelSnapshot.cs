@@ -209,8 +209,6 @@ namespace USZDashboard.Data.Migrations
 
                     b.Property<int>("LayoutId");
 
-                    b.Property<string>("Structure");
-
                     b.Property<string>("Title");
 
                     b.Property<bool>("categories");

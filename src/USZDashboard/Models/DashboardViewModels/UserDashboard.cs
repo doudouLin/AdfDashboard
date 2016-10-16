@@ -6,6 +6,8 @@ namespace USZDashboard.Models.DashboardViewModels
     {
         public int UserDashboardId { get; set; }
 
+        public string Ext { get; set; }
+
         //Foreign Key for Dashboard
         public int DashboardId { get; set; }
         public Dashboard Dashboard { get; set; }

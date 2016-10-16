@@ -6,12 +6,13 @@ namespace USZDashboard.Models.DashboardViewModels
     {
         public int DashboardId { get; set; }
 
-        public string Name { get; set; }
+        public string DashboardName { get; set; }
         public string Title { get; set; }
         public bool editable { get; set; }
         public bool maximizable { get; set; }
         public bool collapsible { get; set; }
         public bool categories { get; set; }
+        public string Structure { get; set; }
 
 
         //Foreign key for Layout

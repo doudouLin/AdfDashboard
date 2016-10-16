@@ -19,7 +19,11 @@ namespace USZDashboard.Repository
         {
             using (_dashboardDbContext)
             {
-                return _dashboardDbContext.Dashboard.Single(ds => ds.DashboardId == Id);
+                return _dashboardDbContext.Dashboard.Include(ds => ds.Layout)
+                    .Include(ds => ds.Widgets)
+                    .Include(ds => ds.UserDashboards)
+                    .ToList()
+                    .Find(i => i.DashboardId == Id);
             }
         }
 

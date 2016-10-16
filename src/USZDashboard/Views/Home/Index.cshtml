@@ -9,8 +9,8 @@
 
 <script src="~/lib/angular/angular.js"></script>
 <script src="~/lib/Sortable/Sortable.js"></script>
-<script src="~/lib/angular-resource/angular-resource.js"></script>
 <script src="~/lib/angular-route/angular-route.js"></script>
+<script src="~/lib/angular-resource/angular-resource.js"></script>
 <script src="~/lib/angular-bootstrap/ui-bootstrap.js"></script>
 <script src="~/lib/angular-bootstrap/ui-bootstrap-tpls.js"></script>
 <script src="~/lib/angular-local-storage/dist/angular-local-storage.js"></script>
@@ -22,11 +22,34 @@
 
 <script src="~/app.js"></script>
 
-
 <div ng-app ="DashboardAdmin">
     <div ng-controller="DashboardController">
-        <adf-dashboard name="{{name}}" collapsible="{{collapsible}}" structure="{{structure}}" 
-                       maximizable="{{maximizable}}" categories="{{categories}}" adf-model="model" editable="{{editable}}"/>
+
+        dashboard title {{dashboard.title}}
+        <br />
+        dashboard collapsible {{dashboard.collapsible}}
+        <br />
+
+        dashboard structure {{dashboard.structure}}
+        <br />
+
+        dashboard maximizable {{dashboard.maximizable}}
+        <br />
+
+        <div uib-collapse="navCollapsed" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="#/sample">Sample</a>
+                </li>
+            </ul>
+        </div><!--/.nav-collapse -->
+
+        <div class="container">
+            <div ng-view />
+        </div>
+        
+        @*<adf-dashboard name="{{dashboard.name}}" collapsible="{{dashboard.collapsible}}" structure="{{dashboard.structure}}" 
+                       maximizable="{{dashboard.maximizable}}" categories="{{dashboard.categories}}" adf-model="model" editable="{{dashboard.editable}}"/>*@
     </div>
 </div>
 

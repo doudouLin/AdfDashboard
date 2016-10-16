@@ -4,9 +4,11 @@
     {
         public int LayoutId { get; set; }
 
-        public string Name { get; set; }
+        public string LayoutName { get; set; }
 
         public string Structure { get; set; }
+
+
 
     }
 }

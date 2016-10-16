@@ -35,14 +35,14 @@ namespace USZDashboard.Data
 
         public DbSet<Layout> Layout { get; set; }
 
-        public DbSet<LayoutDetail> LayoutDetail { get; set; }
-
         public DbSet<AdminRight> AdminRight { get; set; }
 
         public DbSet<UserDashboard> UserDashboard { get; set; }
 
         public DbSet<UserGroup> UserGroup { get; set; }
 
+
+        public DbSet<StructureTable> StructureTable { get; set; }
 
     }
 }

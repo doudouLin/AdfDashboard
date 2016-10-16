@@ -5,7 +5,7 @@ namespace USZDashboard.Models.DashboardViewModels
     public class UserGroup
     {
         public int UserGroupId { get; set; }
-        public string Name { get; set; }
+        public string GroupName { get; set; }
 
         //Foreign key for User
         public int UserId { get; set; }

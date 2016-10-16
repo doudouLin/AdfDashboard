@@ -1,6 +1,7 @@
 ﻿/// <autosync enabled="true" />
 /// <reference path="../gruntfile.js" />
 /// <reference path="../scripts/app.js" />
+/// <reference path="../scripts/app1.js" />
 /// <reference path="../scripts/controllers/dashboardcontroller.js" />
 /// <reference path="../scripts/services/dashboardservice.js" />
 /// <reference path="app.js" />
