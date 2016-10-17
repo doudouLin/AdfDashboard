@@ -1,28 +1,35 @@
-﻿(function () {
-    'use strict';
+﻿//(function () {
+//    'use strict';
 
-    var DashboardService = angular.module('DashboardService', ['ngResource']);
-    DashboardService.factory('DashboardsFactory', ['$resource',
-        function ($resource) {
+//    //angular.module('DashboardService', ['ngResource'])
+//    //.service('DashboardsFactory', ['$http', '$q', function ($http, $q) {
+//    //    return {
+//    //        GetDashboardById: function (id) {
+//    //            var deferred = $q.defer();
+//    //            $http.get('/DashboardAdmin/USZDashboard/' + id)
+//    //                .success(function (data) {
+//    //                    deferred.resolve(data);
+//    //                })
+//    //                .error(function () {
+//    //                    deferred.reject();
+//    //                });
+//    //            return deferred.promise;
+//    //        },
+//    //        GetAllDashboards: function () {
+//    //            var deferred = $q.defer();
+//    //            $http.get('/DashboardAdmin/USZDashboard')
+//    //                .success(function (data) {
+//    //                    deferred.resolve(data);
+//    //                })
+//    //                .error(function () {
+//    //                    deferred.reject();
+//    //                });
+//    //            return deferred.promise;
+//    //        }
+//    //    }
 
-            //var resource = $resource('/DashboardAdmin/USZDashboard', {}, {
-            //        query: { method: 'GET', params: {}, isArray: true }
-            //});
-
-            //return {
-            //    GetAllDashboards: function () {
-            //        resource.query().$promise.then(function (data) {
-            //            console.log('hihi this is data');
-            //            console.log(data);
-            //            return data;
-            //        });
-            //    }
-            //}
-
-
-            return $resource('/DashboardAdmin/USZDashboard/:dashboardId', {dashboardId:'@id'}, {
-                query: { method: 'GET', params: {}, isArray: false }
-            });
-        }
-    ]);
-})();
+//    //    //return $resource('/DashboardAdmin/USZDashboard/:dashboardId', {dashboardId:'@id'}, {
+//    //    //       GetDashboardById: { method: 'GET', params: {}, isArray: false }
+//    //    //   });
+//    //}]);
+//})();

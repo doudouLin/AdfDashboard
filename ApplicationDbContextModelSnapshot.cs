@@ -8,10 +8,9 @@ using USZDashboard.Data;
 namespace USZDashboard.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20161016212219_home")]
-    partial class home
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.1")

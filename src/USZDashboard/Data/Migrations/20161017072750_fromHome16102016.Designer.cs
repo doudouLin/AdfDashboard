@@ -8,8 +8,8 @@ using USZDashboard.Data;
 namespace USZDashboard.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20161016173654_home1")]
-    partial class home1
+    [Migration("20161017072750_fromHome16102016")]
+    partial class fromHome16102016
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -178,6 +178,8 @@ namespace USZDashboard.Data.Migrations
                     b.Property<int>("AdminRightId")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("Ext");
+
                     b.Property<string>("Right");
 
                     b.HasKey("AdminRightId");
@@ -204,9 +206,11 @@ namespace USZDashboard.Data.Migrations
                     b.Property<int>("DashboardId")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("DashboardName");
+
                     b.Property<int>("LayoutId");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Structure");
 
                     b.Property<string>("Title");
 
@@ -230,7 +234,7 @@ namespace USZDashboard.Data.Migrations
                     b.Property<int>("LayoutId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Name");
+                    b.Property<string>("LayoutName");
 
                     b.Property<string>("Structure");
 
@@ -239,9 +243,9 @@ namespace USZDashboard.Data.Migrations
                     b.ToTable("Layout");
                 });
 
-            modelBuilder.Entity("USZDashboard.Models.DashboardViewModels.LayoutDetail", b =>
+            modelBuilder.Entity("USZDashboard.Models.DashboardViewModels.StructureTable", b =>
                 {
-                    b.Property<int>("LayoutDetailId")
+                    b.Property<int>("StructureTableId")
                         .ValueGeneratedOnAdd();
 
                     b.Property<int>("Column");
@@ -252,11 +256,15 @@ namespace USZDashboard.Data.Migrations
 
                     b.Property<int>("RowNumber");
 
-                    b.HasKey("LayoutDetailId");
+                    b.Property<int>("WidgetId");
+
+                    b.HasKey("StructureTableId");
 
                     b.HasIndex("LayoutId");
 
-                    b.ToTable("LayoutDetail");
+                    b.HasIndex("WidgetId");
+
+                    b.ToTable("StructureTable");
                 });
 
             modelBuilder.Entity("USZDashboard.Models.DashboardViewModels.User", b =>
@@ -264,9 +272,13 @@ namespace USZDashboard.Data.Migrations
                     b.Property<int>("UserId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Name");
+                    b.Property<string>("FirstName");
+
+                    b.Property<string>("LastName");
 
                     b.Property<string>("Password");
+
+                    b.Property<string>("Photo");
 
                     b.Property<int?>("UserGroupId");
 
@@ -283,6 +295,8 @@ namespace USZDashboard.Data.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<int>("DashboardId");
+
+                    b.Property<string>("Ext");
 
                     b.Property<int>("UserGroupId");
 
@@ -306,7 +320,7 @@ namespace USZDashboard.Data.Migrations
 
                     b.Property<int>("AdminRightId");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("GroupName");
 
                     b.Property<int>("UserId");
 
@@ -323,6 +337,8 @@ namespace USZDashboard.Data.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<int?>("DashboardId");
+
+                    b.Property<string>("WidgetName");
 
                     b.Property<string>("config");
 
@@ -386,11 +402,16 @@ namespace USZDashboard.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("USZDashboard.Models.DashboardViewModels.LayoutDetail", b =>
+            modelBuilder.Entity("USZDashboard.Models.DashboardViewModels.StructureTable", b =>
                 {
                     b.HasOne("USZDashboard.Models.DashboardViewModels.Layout", "Layout")
                         .WithMany()
                         .HasForeignKey("LayoutId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("USZDashboard.Models.DashboardViewModels.Widget", "Widget")
+                        .WithMany()
+                        .HasForeignKey("WidgetId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
