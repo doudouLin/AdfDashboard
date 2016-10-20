@@ -1,20 +1,20 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace USZDashboard.Models.DashboardViewModels
 {
-    public class UserGroup
+    public class UserGroup : EntityBase
     {
-        public int UserGroupId { get; set; }
         public string GroupName { get; set; }
 
-        //Foreign key for User
-        public int UserId { get; set; }
-
-        public List<User> User { get; set; }
 
         //Foreign key for AdminRight
-        public int AdminRightId { get; set; }
-
+        public Guid AdminRightId { get; set; }
+        [ForeignKey(nameof(AdminRightId))]
         public AdminRight AdminRight { get; set; }
+
+
+        public List<User> Users { get; set; }
     }
 }

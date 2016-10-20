@@ -1,8 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using USZDashboard.Repository;
 using USZDashboard.Models.DashboardViewModels;
@@ -14,13 +11,10 @@ namespace USZDashboard.Controllers.DashboardAdmin
     [Route("DashboardAdmin/USZDashboard")]
     public class USZDashboardController : Controller
     {
-        private ApplicationDbContext _dashboardDbContext;
-
         private readonly IDashboardRepository _dashboardRepository;
 
         public USZDashboardController(ApplicationDbContext applicationDbContext)
         {
-            _dashboardDbContext = applicationDbContext;
             _dashboardRepository = new DashboardRepository(applicationDbContext);
         }
         
@@ -34,27 +28,42 @@ namespace USZDashboard.Controllers.DashboardAdmin
 
         // GET: api/USZDashboard/5
         [HttpGet("{id}", Name = "Get")]
-        public Dashboard GetDashboard(int id)
+        public Dashboard GetDashboard(Guid id)
         {
             return _dashboardRepository.GetDashboard(id);
         }
-        
-        //// POST: api/USZDashboard
-        //[HttpPost]
-        //public void Post([FromBody]string value)
-        //{
-        //}
-        
-        //// PUT: api/USZDashboard/5
+
+        // POST: DashboardAdmin/USZDashboard
+        [HttpPost]
+        public void Post([FromBody]Dashboard dashboard)
+        {
+            _dashboardRepository.SaveDashboard(dashboard);
+        }
+        [Route("SaveWidgets")]
+        [HttpPost]
+        public void SaveWidgets([FromBody]List<Widget> widgets)
+        {
+            _dashboardRepository.SaveWidgets(widgets);
+        }
+
+        // PUT: api/USZDashboard/5
         //[HttpPut("{id}")]
-        //public void Put(int id, [FromBody]string value)
+        //public void Put(int id, [FromBody]Dashboard dashboard)
         //{
+        //    _dashboardRepository.AddDashboard(dashboard);
         //}
-        
-        //// DELETE: api/ApiWithActions/5
-        //[HttpDelete("{id}")]
-        //public void Delete(int id)
-        //{
-        //}
+        [Route("AddWidget")]
+        [HttpPut]
+        public void AddWidget([FromBody]Widget widget)
+        {
+            _dashboardRepository.AddWidget(widget);
+        }
+
+        [Route("DeleteWidget")]
+        [HttpDelete("{id}", Name = "Delete")]
+        public void DeleteWidget(Guid id)
+        {
+            _dashboardRepository.DeleteWidget(id);
+        }
     }
 }

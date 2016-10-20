@@ -1,28 +1,26 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace USZDashboard.Models.DashboardViewModels
 {
-    public class Dashboard
+    public class Dashboard : EntityBase
     {
-        public int DashboardId { get; set; }
-
         public string DashboardName { get; set; }
         public string Title { get; set; }
-        public bool editable { get; set; }
-        public bool maximizable { get; set; }
-        public bool collapsible { get; set; }
-        public bool categories { get; set; }
-        public string Structure { get; set; }
+        public bool Editable { get; set; }
+        public bool Maximizable { get; set; }
+        public bool Collapsible { get; set; }
+        public bool Categories { get; set; }
 
 
-        //Foreign key for Layout
-        public int LayoutId { get; set; }
+        //Foreign Key for Structure
+        public Guid StructureId { get; set; }
 
-        public Layout Layout { get; set; }
+        [ForeignKey(nameof(StructureId))]
+        public Structure Structure { get; set; }
 
-        public List<Widget> Widgets { get; set; }
-
-        public List<UserDashboard> UserDashboards { get; set; }
+        public List<TableRow> TableRows { get; set; }
 
     }
 }

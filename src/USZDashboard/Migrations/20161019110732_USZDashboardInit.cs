@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace USZDashboard.Data.Migrations
+namespace USZDashboard.Migrations
 {
-    public partial class fromHome16102016 : Migration
+    public partial class USZDashboardInit : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -66,42 +65,50 @@ namespace USZDashboard.Data.Migrations
                 name: "AdminRight",
                 columns: table => new
                 {
-                    AdminRightId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Id = table.Column<Guid>(nullable: false),
+                    ChangeDate = table.Column<DateTime>(nullable: true),
+                    ChangeUser = table.Column<string>(nullable: true),
+                    CreateDate = table.Column<DateTime>(nullable: false),
+                    CreateUser = table.Column<string>(nullable: true),
                     Ext = table.Column<string>(nullable: true),
                     Right = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AdminRight", x => x.AdminRightId);
+                    table.PrimaryKey("PK_AdminRight", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Clinic",
                 columns: table => new
                 {
-                    ClinicId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Id = table.Column<Guid>(nullable: false),
+                    ChangeDate = table.Column<DateTime>(nullable: true),
+                    ChangeUser = table.Column<string>(nullable: true),
                     ClinicLongName = table.Column<string>(nullable: true),
-                    ClinicName = table.Column<string>(nullable: true)
+                    ClinicName = table.Column<string>(nullable: true),
+                    CreateDate = table.Column<DateTime>(nullable: false),
+                    CreateUser = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Clinic", x => x.ClinicId);
+                    table.PrimaryKey("PK_Clinic", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Layout",
+                name: "Structure",
                 columns: table => new
                 {
-                    LayoutId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    LayoutName = table.Column<string>(nullable: true),
-                    Structure = table.Column<string>(nullable: true)
+                    Id = table.Column<Guid>(nullable: false),
+                    ChangeDate = table.Column<DateTime>(nullable: true),
+                    ChangeUser = table.Column<string>(nullable: true),
+                    CreateDate = table.Column<DateTime>(nullable: false),
+                    CreateUser = table.Column<string>(nullable: true),
+                    Value = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Layout", x => x.LayoutId);
+                    table.PrimaryKey("PK_Structure", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -194,20 +201,22 @@ namespace USZDashboard.Data.Migrations
                 name: "UserGroup",
                 columns: table => new
                 {
-                    UserGroupId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    AdminRightId = table.Column<int>(nullable: false),
-                    GroupName = table.Column<string>(nullable: true),
-                    UserId = table.Column<int>(nullable: false)
+                    Id = table.Column<Guid>(nullable: false),
+                    AdminRightId = table.Column<Guid>(nullable: false),
+                    ChangeDate = table.Column<DateTime>(nullable: true),
+                    ChangeUser = table.Column<string>(nullable: true),
+                    CreateDate = table.Column<DateTime>(nullable: false),
+                    CreateUser = table.Column<string>(nullable: true),
+                    GroupName = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserGroup", x => x.UserGroupId);
+                    table.PrimaryKey("PK_UserGroup", x => x.Id);
                     table.ForeignKey(
                         name: "FK_UserGroup_AdminRight_AdminRightId",
                         column: x => x.AdminRightId,
                         principalTable: "AdminRight",
-                        principalColumn: "AdminRightId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -215,25 +224,27 @@ namespace USZDashboard.Data.Migrations
                 name: "Dashboard",
                 columns: table => new
                 {
-                    DashboardId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Id = table.Column<Guid>(nullable: false),
+                    Categories = table.Column<bool>(nullable: false),
+                    ChangeDate = table.Column<DateTime>(nullable: true),
+                    ChangeUser = table.Column<string>(nullable: true),
+                    Collapsible = table.Column<bool>(nullable: false),
+                    CreateDate = table.Column<DateTime>(nullable: false),
+                    CreateUser = table.Column<string>(nullable: true),
                     DashboardName = table.Column<string>(nullable: true),
-                    LayoutId = table.Column<int>(nullable: false),
-                    Structure = table.Column<string>(nullable: true),
-                    Title = table.Column<string>(nullable: true),
-                    categories = table.Column<bool>(nullable: false),
-                    collapsible = table.Column<bool>(nullable: false),
-                    editable = table.Column<bool>(nullable: false),
-                    maximizable = table.Column<bool>(nullable: false)
+                    Editable = table.Column<bool>(nullable: false),
+                    Maximizable = table.Column<bool>(nullable: false),
+                    StructureId = table.Column<Guid>(nullable: false),
+                    Title = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Dashboard", x => x.DashboardId);
+                    table.PrimaryKey("PK_Dashboard", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Dashboard_Layout_LayoutId",
-                        column: x => x.LayoutId,
-                        principalTable: "Layout",
-                        principalColumn: "LayoutId",
+                        name: "FK_Dashboard_Structure_StructureId",
+                        column: x => x.StructureId,
+                        principalTable: "Structure",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -241,47 +252,48 @@ namespace USZDashboard.Data.Migrations
                 name: "User",
                 columns: table => new
                 {
-                    UserId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Id = table.Column<Guid>(nullable: false),
+                    ChangeDate = table.Column<DateTime>(nullable: true),
+                    ChangeUser = table.Column<string>(nullable: true),
+                    CreateDate = table.Column<DateTime>(nullable: false),
+                    CreateUser = table.Column<string>(nullable: true),
                     FirstName = table.Column<string>(nullable: true),
                     LastName = table.Column<string>(nullable: true),
                     Password = table.Column<string>(nullable: true),
                     Photo = table.Column<string>(nullable: true),
-                    UserGroupId = table.Column<int>(nullable: true)
+                    UserGroupId = table.Column<Guid>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_User", x => x.UserId);
+                    table.PrimaryKey("PK_User", x => x.Id);
                     table.ForeignKey(
                         name: "FK_User_UserGroup_UserGroupId",
                         column: x => x.UserGroupId,
                         principalTable: "UserGroup",
-                        principalColumn: "UserGroupId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Widget",
+                name: "TableRow",
                 columns: table => new
                 {
-                    WidgetId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    DashboardId = table.Column<int>(nullable: true),
-                    WidgetName = table.Column<string>(nullable: true),
-                    config = table.Column<string>(nullable: true),
-                    fullScreen = table.Column<string>(nullable: true),
-                    modalSize = table.Column<string>(nullable: true),
-                    title = table.Column<string>(nullable: true),
-                    type = table.Column<string>(nullable: true)
+                    Id = table.Column<Guid>(nullable: false),
+                    ChangeDate = table.Column<DateTime>(nullable: true),
+                    ChangeUser = table.Column<string>(nullable: true),
+                    CreateDate = table.Column<DateTime>(nullable: false),
+                    CreateUser = table.Column<string>(nullable: true),
+                    DashboardId = table.Column<Guid>(nullable: true),
+                    RowNumber = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Widget", x => x.WidgetId);
+                    table.PrimaryKey("PK_TableRow", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Widget_Dashboard_DashboardId",
+                        name: "FK_TableRow_Dashboard_DashboardId",
                         column: x => x.DashboardId,
                         principalTable: "Dashboard",
-                        principalColumn: "DashboardId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -289,62 +301,111 @@ namespace USZDashboard.Data.Migrations
                 name: "UserDashboard",
                 columns: table => new
                 {
-                    UserDashboardId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    DashboardId = table.Column<int>(nullable: false),
+                    Id = table.Column<Guid>(nullable: false),
+                    ChangeDate = table.Column<DateTime>(nullable: true),
+                    ChangeUser = table.Column<string>(nullable: true),
+                    CreateDate = table.Column<DateTime>(nullable: false),
+                    CreateUser = table.Column<string>(nullable: true),
+                    DashboardId = table.Column<Guid>(nullable: false),
                     Ext = table.Column<string>(nullable: true),
-                    UserGroupId = table.Column<int>(nullable: false),
-                    UserId = table.Column<int>(nullable: false)
+                    UserGroupId = table.Column<Guid>(nullable: false),
+                    UserId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserDashboard", x => x.UserDashboardId);
+                    table.PrimaryKey("PK_UserDashboard", x => x.Id);
                     table.ForeignKey(
                         name: "FK_UserDashboard_Dashboard_DashboardId",
                         column: x => x.DashboardId,
                         principalTable: "Dashboard",
-                        principalColumn: "DashboardId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_UserDashboard_UserGroup_UserGroupId",
                         column: x => x.UserGroupId,
                         principalTable: "UserGroup",
-                        principalColumn: "UserGroupId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_UserDashboard_User_UserId",
                         column: x => x.UserId,
                         principalTable: "User",
-                        principalColumn: "UserId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "StructureTable",
+                name: "TableColumn",
                 columns: table => new
                 {
-                    StructureTableId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Column = table.Column<int>(nullable: false),
+                    Id = table.Column<Guid>(nullable: false),
+                    ChangeDate = table.Column<DateTime>(nullable: true),
+                    ChangeUser = table.Column<string>(nullable: true),
+                    ColumnNumber = table.Column<int>(nullable: false),
                     ColumnStyle = table.Column<string>(nullable: true),
-                    LayoutId = table.Column<int>(nullable: false),
-                    RowNumber = table.Column<int>(nullable: false),
-                    WidgetId = table.Column<int>(nullable: false)
+                    CreateDate = table.Column<DateTime>(nullable: false),
+                    CreateUser = table.Column<string>(nullable: true),
+                    TableRowId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_StructureTable", x => x.StructureTableId);
+                    table.PrimaryKey("PK_TableColumn", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_StructureTable_Layout_LayoutId",
-                        column: x => x.LayoutId,
-                        principalTable: "Layout",
-                        principalColumn: "LayoutId",
+                        name: "FK_TableColumn_TableRow_TableRowId",
+                        column: x => x.TableRowId,
+                        principalTable: "TableRow",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Widget",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    ChangeDate = table.Column<DateTime>(nullable: true),
+                    ChangeUser = table.Column<string>(nullable: true),
+                    CreateDate = table.Column<DateTime>(nullable: false),
+                    CreateUser = table.Column<string>(nullable: true),
+                    FullScreen = table.Column<bool>(nullable: false),
+                    ModalSize = table.Column<string>(nullable: true),
+                    TableColumnId = table.Column<Guid>(nullable: false),
+                    Title = table.Column<string>(nullable: true),
+                    Type = table.Column<string>(nullable: true),
+                    WidgetName = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Widget", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_StructureTable_Widget_WidgetId",
+                        name: "FK_Widget_TableColumn_TableColumnId",
+                        column: x => x.TableColumnId,
+                        principalTable: "TableColumn",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "WidgetConfigration",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    ChangeDate = table.Column<DateTime>(nullable: true),
+                    ChangeUser = table.Column<string>(nullable: true),
+                    CreateDate = table.Column<DateTime>(nullable: false),
+                    CreateUser = table.Column<string>(nullable: true),
+                    Key = table.Column<string>(nullable: true),
+                    Value = table.Column<string>(nullable: true),
+                    WidgetId = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_WidgetConfigration", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_WidgetConfigration_Widget_WidgetId",
                         column: x => x.WidgetId,
                         principalTable: "Widget",
-                        principalColumn: "WidgetId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -390,19 +451,19 @@ namespace USZDashboard.Data.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Dashboard_LayoutId",
+                name: "IX_Dashboard_StructureId",
                 table: "Dashboard",
-                column: "LayoutId");
+                column: "StructureId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_StructureTable_LayoutId",
-                table: "StructureTable",
-                column: "LayoutId");
+                name: "IX_TableColumn_TableRowId",
+                table: "TableColumn",
+                column: "TableRowId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_StructureTable_WidgetId",
-                table: "StructureTable",
-                column: "WidgetId");
+                name: "IX_TableRow_DashboardId",
+                table: "TableRow",
+                column: "DashboardId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_User_UserGroupId",
@@ -430,9 +491,14 @@ namespace USZDashboard.Data.Migrations
                 column: "AdminRightId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Widget_DashboardId",
+                name: "IX_Widget_TableColumnId",
                 table: "Widget",
-                column: "DashboardId");
+                column: "TableColumnId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_WidgetConfigration_WidgetId",
+                table: "WidgetConfigration",
+                column: "WidgetId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -456,10 +522,10 @@ namespace USZDashboard.Data.Migrations
                 name: "Clinic");
 
             migrationBuilder.DropTable(
-                name: "StructureTable");
+                name: "UserDashboard");
 
             migrationBuilder.DropTable(
-                name: "UserDashboard");
+                name: "WidgetConfigration");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
@@ -468,22 +534,28 @@ namespace USZDashboard.Data.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "Widget");
-
-            migrationBuilder.DropTable(
                 name: "User");
 
             migrationBuilder.DropTable(
-                name: "Dashboard");
+                name: "Widget");
 
             migrationBuilder.DropTable(
                 name: "UserGroup");
 
             migrationBuilder.DropTable(
-                name: "Layout");
+                name: "TableColumn");
 
             migrationBuilder.DropTable(
                 name: "AdminRight");
+
+            migrationBuilder.DropTable(
+                name: "TableRow");
+
+            migrationBuilder.DropTable(
+                name: "Dashboard");
+
+            migrationBuilder.DropTable(
+                name: "Structure");
         }
     }
 }

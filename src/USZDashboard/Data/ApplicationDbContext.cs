@@ -33,16 +33,18 @@ namespace USZDashboard.Data
 
         public DbSet<Widget> Widget { get; set; }
 
-        public DbSet<Layout> Layout { get; set; }
-
         public DbSet<AdminRight> AdminRight { get; set; }
 
         public DbSet<UserDashboard> UserDashboard { get; set; }
 
         public DbSet<UserGroup> UserGroup { get; set; }
 
+        public DbSet<TableColumn> TableColumn { get; set; }
 
-        public DbSet<StructureTable> StructureTable { get; set; }
+        public DbSet<TableRow> TableRow { get; set; }
 
+        public DbSet<Structure> Structure { get; set; }
+
+        public DbSet<WidgetConfigration> WidgetConfigration { get; set; }
     }
 }

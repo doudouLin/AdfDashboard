@@ -1,16 +1,23 @@
-﻿namespace USZDashboard.Models.DashboardViewModels
+﻿using System;
+using System.Collections.Generic;
+
+namespace USZDashboard.Models.DashboardViewModels
 {
-    public class Widget
+    public class Widget : EntityBase
     {
-        public int WidgetId { get; set; }
-        public string title { get; set; }
-
+        public string Title { get; set; }
         public string WidgetName { get; set; }
+        public string ModalSize { get; set; }
+        public string Type { get; set; }
+        public bool FullScreen { get; set; }
+        public int Index { get; set; }
 
-        public string modalSize { get; set; }
-        public string type { get; set; }
-        public string config { get; set; }
-        public string fullScreen { get; set; }
+        //Foreign key for TableRow
+        public Guid TableColumnId { get; set; }
 
+        //[ForeignKey(nameof(TableColumnId))]
+        //public TableColumn TableColumn { get; set; }
+
+        public List<WidgetConfigration> WidgetConfigrations { get; set; }
     }
 }
